@@ -123,7 +123,16 @@ public class ChipInfo extends AppCompatActivity {
             }
             return resultat;
         }
+
+        @Override
+        protected void onPostExecute(String resultat) {
+            pbar.setVisibility(View.INVISIBLE);
+            MacVendor.setText(resultat);
+            if(resultat.isEmpty()){
+                MacVendor.setText("Vendor Not found");
+            }
         }
+    }
 
 
     public static String getMacAddr(){
