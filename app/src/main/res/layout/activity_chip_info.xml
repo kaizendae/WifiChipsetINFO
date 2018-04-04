@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="1dp"
+    android:orientation="vertical"
     tools:context="com.hidiki.wifichipsetinfo.ChipInfo">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        ads:layout_constraintTop_toTopOf="parent"
-        ads:layout_constraintLeft_toLeftOf="parent"
-        ads:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="8dp"
-        ads:layout_constraintBottom_toTopOf="@+id/textView">
-    </com.google.android.gms.ads.AdView>
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-4739138619539871/5246422989"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"></com.google.android.gms.ads.AdView>
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/text_mac"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.029"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/adView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="97dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="97dp">
 
         <EditText
-            android:editable="false"
             android:id="@+id/MacTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,13 +55,20 @@
             android:layout_marginStart="8dp"
             android:layout_weight="0.61"
             android:ems="10"
+            android:fontFamily="monospace"
             android:hint="@string/_00_00_00_00_00_00"
             android:inputType="textPersonName"
             android:textSize="24sp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/BtnGet"
+            tools:ignore="UnusedAttribute"
             tools:layout_editor_absoluteY="87dp" />
+
+        <requestFocus
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.61" />
 
         <Button
             android:id="@+id/BtnGet"
@@ -81,94 +83,97 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="UnusedAttribute"
             tools:layout_editor_absoluteY="82dp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/wifi_chipset_vendor"
         android:textSize="18sp"
         app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <Button
-            android:id="@+id/ClearBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="OnClickClear"
-            android:text="@string/clear"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/DetectBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="OnClickDetect"
-            android:text="@string/detect"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/MacVendor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="19dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="19dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:elegantTextHeight="false"
+        android:enabled="false"
         android:textColor="@android:color/holo_blue_bright"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="19dp" />
+        app:layout_constraintVertical_bias="0.036" />
 
-    <ProgressBar
-        android:id="@+id/ProgressBB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/MacVendor"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.218"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <Button
+                android:id="@+id/ClearBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="OnClickClear"
+                android:text="@string/clear"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/DetectBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="OnClickDetect"
+                android:text="@string/detect"
+                tools:ignore="ButtonStyle" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/ProgressBB"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="51dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MacVendor"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="NotSibling" />
+
+    </RelativeLayout>
+
+</LinearLayout>

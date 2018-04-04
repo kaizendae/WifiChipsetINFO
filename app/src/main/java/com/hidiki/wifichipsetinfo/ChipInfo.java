@@ -1,10 +1,20 @@
 package com.hidiki.wifichipsetinfo;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,14 +31,17 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.NetworkInterface;
 import java.net.URI;
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -53,6 +66,7 @@ public class ChipInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chip_info);
          MacVendor = (TextView)findViewById(R.id.MacVendor);
@@ -63,7 +77,7 @@ public class ChipInfo extends AppCompatActivity {
          pbar = (ProgressBar) findViewById(R.id.ProgressBB);
 
         BtnDetect.setEnabled(false);
-        MobileAds.initialize(this, "YOUR_ADMOB_APP_ID");
+        MobileAds.initialize(this,"ca-app-pub-4739138619539871~5960738859");
 
         myAdv = (AdView)findViewById(R.id.adView);
         AdRequest adrequest = new AdRequest.Builder().build();
@@ -71,7 +85,7 @@ public class ChipInfo extends AppCompatActivity {
 
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-4739138619539871/2580375978");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
     }
@@ -102,6 +116,7 @@ public class ChipInfo extends AppCompatActivity {
         MacVendor.setText("");
         BtnDetect.setEnabled(false);
     }
+
     class findMacTask extends AsyncTask<String ,Void,String>{
         @Override
         protected void onPreExecute() {
@@ -114,9 +129,9 @@ public class ChipInfo extends AppCompatActivity {
             String resultat = "Vendor not found";
             try {
                 resultat = readFromAssets("macdb.dat", mac[0]);
-               /*if (resultat == null) {
-                    resultat = getPageGet(url2 + mac[0]);
-                }*/
+               if (resultat == null) {
+                    resultat = getPageGet(mac[0]);
+                }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -160,13 +175,39 @@ public class ChipInfo extends AppCompatActivity {
         }
         return "";
     }
-    /*public String getPageGet(String url) {
+    public String getPageGet(String mac) {
+        HttpURLConnection urlConnection = null;
         StringBuffer text = new StringBuffer("");
+        String ur = "https://macvendors.co/api/vendorname/" + mac;
+        StringBuilder Output = new StringBuilder();
+
+        try{
+            URL url = new URL(ur);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            String line;
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            while ((line = reader.readLine()) != null) {
+                Output.append(line);
+            }
+            in.close();
+
+            Log.i("klm",Output.toString());
+
+        }catch (Exception e) {
+            Log.i("Exemple_Android", e.getMessage());
+        }finally {
+            urlConnection.disconnect();
+        }
+        return Output.toString();
+
+        /*
         try {
-            URI uri = new URI(url);
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(url);
-            HttpResponse response = client.execute(request);
+            URI url = new URI(ur);
+            org.apache.http.client.HttpClient client = new DefaultHttpClient();
+            HttpResponse response = client.execute(HttpGet(ur));
             // Get the response
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
@@ -178,8 +219,21 @@ public class ChipInfo extends AppCompatActivity {
             Log.i("Exemple_Android", e.getMessage());
         }
         return text.toString();
-    }*/
+        */
+    }
 
+    public String Stream2String(InputStream inputStream) {
+        BufferedReader bureader =new BufferedReader( new InputStreamReader(inputStream));
+        String line ;
+        StringBuilder Text = new StringBuilder();
+        try{
+            while((line = bureader.readLine())!=null) {
+                Text.append(line);
+            }
+            inputStream.close();
+        }catch (Exception ex){}
+        return Text.toString();
+    }
     public String readFromAssets(String filename, String mac) throws IOException {
         String mac_adr = mac.replace(":", "").replace("-", "").replace(".", "").replace(" ", "");
         BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open(filename)));
@@ -203,5 +257,77 @@ public class ChipInfo extends AppCompatActivity {
         return null;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_more_apps:
+                String developer_id = "Androdiki";
+                try {
 
+                    this.startActivity(
+                            new Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://store/apps/developer?id=" + developer_id)
+                            )
+                    );
+
+                } catch (android.content.ActivityNotFoundException e) {
+
+                    this.startActivity(
+                            new Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/developer?id=" + developer_id)
+                            )
+                    );
+
+                }
+                break;
+            case R.id.action_about:
+                //View messageView = getLayoutInflater().inflate(R.layout.about, null);
+
+                // When linking text, force to always use default color. This works
+                // around a pressed color state bug.
+                String version = "1.0.0";
+                try {
+                    PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+                    version = pInfo.versionName;
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("About");
+                builder.setMessage("Wifi CHipSet Info \n\n" + version + "\n\nCopyright © Heidiki 2018");
+                builder.setPositiveButton("More Apps", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String developer_id = "Androdiki";
+                        try {
+
+                            ChipInfo.this.startActivity(
+                                    new Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("market://store/apps/developer?id=" + developer_id)
+                                    )
+                            );
+
+                        } catch (android.content.ActivityNotFoundException e) {
+
+                            ChipInfo.this.startActivity(
+                                    new Intent(
+                                            Intent.ACTION_VIEW,
+                                            Uri.parse("https://play.google.com/store/apps/developer?id=" + developer_id)
+                                    )
+                            );
+
+                        }
+                    }
+                });
+                builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog Dialog = builder.create();
+                Dialog.show();
+                break;
+        }
+        return true;    }
 }
