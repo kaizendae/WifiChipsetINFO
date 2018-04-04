@@ -202,38 +202,8 @@ public class ChipInfo extends AppCompatActivity {
             urlConnection.disconnect();
         }
         return Output.toString();
-
-        /*
-        try {
-            URI url = new URI(ur);
-            org.apache.http.client.HttpClient client = new DefaultHttpClient();
-            HttpResponse response = client.execute(HttpGet(ur));
-            // Get the response
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                text.append(line + "\n");
-            }
-        } catch (Exception e) {
-            Log.i("Exemple_Android", e.getMessage());
-        }
-        return text.toString();
-        */
     }
 
-    public String Stream2String(InputStream inputStream) {
-        BufferedReader bureader =new BufferedReader( new InputStreamReader(inputStream));
-        String line ;
-        StringBuilder Text = new StringBuilder();
-        try{
-            while((line = bureader.readLine())!=null) {
-                Text.append(line);
-            }
-            inputStream.close();
-        }catch (Exception ex){}
-        return Text.toString();
-    }
     public String readFromAssets(String filename, String mac) throws IOException {
         String mac_adr = mac.replace(":", "").replace("-", "").replace(".", "").replace(" ", "");
         BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open(filename)));
@@ -247,8 +217,6 @@ public class ChipInfo extends AppCompatActivity {
                 return mLine.split("~")[1];
 
             }
-            //
-
             mLine = reader.readLine();
 
         }
@@ -323,6 +291,7 @@ public class ChipInfo extends AppCompatActivity {
                 });
                 builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        mInterstitialAd.show();
                     }
                 });
                 AlertDialog Dialog = builder.create();
