@@ -4,11 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,27 +23,17 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.internal.gmsg.HttpClient;
-
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.NetworkInterface;
-import java.net.URI;
 import java.net.URL;
 import java.util.Collections;
-import java.util.List;
 
-import javax.crypto.Mac;
 
 import static java.lang.String.*;
 
@@ -68,6 +56,7 @@ public class ChipInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
         setContentView(R.layout.activity_chip_info);
          MacVendor = (TextView)findViewById(R.id.MacVendor);
          BtnGet = (Button)findViewById(R.id.BtnGet);
@@ -228,6 +217,10 @@ public class ChipInfo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_guide:
+                Intent guideA = new Intent(this,Guide.class);
+                startActivity(guideA);
+                break;
             case R.id.action_more_apps:
                 String developer_id = "Androdiki";
                 try {
@@ -251,10 +244,6 @@ public class ChipInfo extends AppCompatActivity {
                 }
                 break;
             case R.id.action_about:
-                //View messageView = getLayoutInflater().inflate(R.layout.about, null);
-
-                // When linking text, force to always use default color. This works
-                // around a pressed color state bug.
                 String version = "1.0.0";
                 try {
                     PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);

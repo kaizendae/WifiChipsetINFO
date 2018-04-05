@@ -2,15 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_guide"
+        app:showAsAction="never"
+        android:title="How To use ?"
+        android:orderInCategory="1"
+        />
+    <item
         android:id="@+id/action_more_apps"
         app:showAsAction="never"
-        android:title="more apps"
-        android:orderInCategory="1"
+        android:title="More Apps"
+        android:orderInCategory="2"
         />
     <item
         android:id="@+id/action_about"
         app:showAsAction="never"
         android:title="About"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         />
 </menu>
