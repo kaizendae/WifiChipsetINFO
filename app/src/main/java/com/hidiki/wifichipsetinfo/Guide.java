@@ -10,7 +10,6 @@ public class Guide extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
         setContentView(R.layout.activity_guide);
     }
     public void clickuse(View v){

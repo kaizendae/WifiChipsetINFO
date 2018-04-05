@@ -56,7 +56,6 @@ public class ChipInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark)));
         setContentView(R.layout.activity_chip_info);
          MacVendor = (TextView)findViewById(R.id.MacVendor);
          BtnGet = (Button)findViewById(R.id.BtnGet);

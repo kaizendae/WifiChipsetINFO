@@ -57,5 +57,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:onClick="clickuse"
-        android:text="Go Back" />
+        android:text="Go Back"
+        android:textColor="@color/colorPrimaryDark" />
 </RelativeLayout>
